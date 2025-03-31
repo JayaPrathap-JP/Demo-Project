@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/JayaPrathap-JP/Demo-Project.git'  // Update with actual repo
+                git branch: 'master', url: 'https://github.com/JayaPrathap-JP/Demo-Project.git'  // Update with actual repo
             }
         }
 
