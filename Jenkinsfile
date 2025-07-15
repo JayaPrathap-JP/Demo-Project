@@ -18,7 +18,7 @@ pipeline {
       steps {
         container('kaniko') {
           sh '''
-            /kaniko/executor --dockerfile=nginx/Dockerfile --context=/home/jenkins/agent/workspace/demo --destination=$IMAGE
+            /kaniko/executor --dockerfile=/nginx/Dockerfile --context=/home/jenkins/agent/workspace/demo --destination=$IMAGE
           '''
         }
       }
