@@ -28,7 +28,7 @@ pipeline {
       steps {
         container('kubectl') {
           sh 'kubectl apply -f k8s/nginx_deployment.yaml || true'
-          sh 'kubectl rollout status deployment/nginx-deployment --timeout=60s || true'
+          sh 'kubectl rollout status deployment/nginx --timeout=60s || true'
         }
       }
     }
