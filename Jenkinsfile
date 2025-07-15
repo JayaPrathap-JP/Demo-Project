@@ -12,7 +12,7 @@ pipeline {
       steps {
         container('kaniko') {
           sh '''
-            /kaniko/executor --dockerfile=Dockerfile --context=. --destination=$IMAGE
+            /kaniko/executor --dockerfile=/nginx/Dockerfile --context=. --destination=$IMAGE
           '''
         }
       }
