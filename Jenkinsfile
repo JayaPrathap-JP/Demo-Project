@@ -8,11 +8,17 @@ pipeline {
     IMAGE = 'jayaprathap96/nginx-custom:latest'
   }
   stages {
-    stage('Kaniko Build') {
+    stage('Checkout Code') {
+      steps {
+        git branch: 'master', url: 'https://github.com/JayaPrathap-JP/Demo-Project.git'
+      }
+    }
+
+    stage('Kaniko Build & Push') {
       steps {
         container('kaniko') {
           sh '''
-            /kaniko/executor --dockerfile=/nginx/Dockerfile --context=. --destination=$IMAGE
+            /kaniko/executor --dockerfile=nginx/Dockerfile --context=/home/jenkins/agent/workspace/demo --destination=$IMAGE
           '''
         }
       }
@@ -20,9 +26,15 @@ pipeline {
 
     stage('Deploy to KIND Kubernetes') {
       steps {
-        container('kubectl') { // Assuming you have kubectl container in pod template
+        container('kubectl') {
           sh 'kubectl apply -f k8s/nginx_deployment.yaml'
         }
+      }
+    }
+
+    stage('Post Info') {
+      steps {
+        echo "✅ Image built and pushed: $IMAGE"
       }
     }
   }
