@@ -27,7 +27,7 @@ pipeline {
     stage('Deploy to KIND Kubernetes') {
       steps {
         container('kubectl') {
-          sh 'kubectl apply -f deploy.yaml || true'
+          sh 'kubectl apply -f /k8s/nginx_deployment.yaml || true'
           sh 'kubectl rollout status deployment/nginx-deployment --timeout=60s || true'
         }
       }
